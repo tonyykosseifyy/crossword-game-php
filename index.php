@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Cross word game</title>
+</head>
+<body>
+    
 <?php
 
 // The noble declaration of your grid and words list
@@ -108,16 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
 
 // Displaying the grid and words, with the searched words highlighted
 displayGrid($grid, $highlights);
+echo '<div class="words-list">';
 displayWords($wordsList);
+echo '</div>';
+
 
 ?>
 
-<style>
-/* The royal decree for styling */
-table, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 5px;
-    text-align: center;
-}
-</style>
+
+</body>
+</html>

@@ -5,9 +5,10 @@ table {
 }
 
 td {
-    border: 1px solid black;
-    padding: 5px;
+    border: 1px solid rgb(188, 188, 188);
+    padding: 12px;
     text-align: center;
+    font-size: 18px;
 }
 
 /* Style for the buttons and form */
@@ -29,16 +30,20 @@ button {
     border-radius: 5px; /* Rounded corners for the button */
     background-color: white; /* Initial background color */
     color: black; /* Initial text color */
-    border: 2px solid #4CAF50; /* Border color similar to dark green for consistency */
+    border: 2px solid #434343; /* Border color similar to dark green for consistency */
 }
 
 /* Hover effect for buttons */
 button:hover {
-    background-color: #4CAF50; /* Dark green background on hover */
+    background-color: #2c2c2c; /* Dark green background on hover */
     color: white; /* White text on hover */
 }
 
 /* Centering the words list */
 .words-list {
-    text-align: center; /* Center the words list container */
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    justify-content: center;
+    margin: 50px auto 0px auto ;
 }
