@@ -14,6 +14,21 @@ $grid = [
     ['M', 'A', 'T', 'R', 'I', 'X', 'S', 'T', 'U', 'S']
 ];
 
+$colors = [
+    "darkgreen", // 1
+    "lightgreen", // 2
+    "orange", // 3
+    "pink", // 4
+    "blue", // 5
+    "red", // 6
+    "yellow", // 7
+    "purple", // 8
+    "cyan", // 9
+    "magenta", // 10
+    "lime", // 11
+    "navy" // 12
+];
+
 $wordsList = ["DIV", "PHP", "STYLE", "SQL", "HTML", "CSS", "JAVASCRIPT", "MATRIX", "SEARCH", "ARRAY", "LIST", "WORD"];
 
 // A function to display the grid, now aware of the words to be highlighted
@@ -41,16 +56,17 @@ function displayWords($wordsList) {
 }
 
 // The function to search for words in the grid and return their positions
-function searchWordInGrid($grid, $word) {
+function searchWordInGrid($grid, $word, $color) {
     $highlights = [];
     $wordLength = strlen($word);
 
     for ($row = 0; $row < count($grid); $row++) {
         for ($col = 0; $col < count($grid[$row]); $col++) {
-            // Search in all 8 directions
-            foreach ([-1, 0, 1] as $dRow) {
-                foreach ([-1, 0, 1] as $dCol) {
-                    if ($dRow == 0 && $dCol == 0) continue; // Skip searching in place
+            // Search in horizontal and vertical directions only
+            foreach ([0, -1, 1] as $dRow) {
+                foreach ([0, -1, 1] as $dCol) {
+                    // Skip diagonal and in-place searches
+                    if (($dRow == 0 && $dCol == 0) || ($dRow != 0 && $dCol != 0)) continue;
 
                     $found = true;
                     for ($i = 0; $i < $wordLength; $i++) {
@@ -67,7 +83,7 @@ function searchWordInGrid($grid, $word) {
                         for ($i = 0; $i < $wordLength; $i++) {
                             $newRow = $row + $i * $dRow;
                             $newCol = $col + $i * $dCol;
-                            $highlights[$newRow][$newCol] = 'yellow'; // Use any color or logic for different words
+                            $highlights[$newRow][$newCol] = $color; // Use the specified color for highlights
                         }
                     }
                 }
@@ -78,11 +94,16 @@ function searchWordInGrid($grid, $word) {
     return $highlights;
 }
 
+
 // Handling the search request
 $highlights = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     $wordToSearch = strtoupper($_POST['word']); // Ensure the case matches the grid
-    $highlights = searchWordInGrid($grid, $wordToSearch);
+    $wordIndex = array_search(strtoupper($wordToSearch), array_map('strtoupper', $wordsList)); // Find the index of the word
+    if ($wordIndex !== false && isset($colors[$wordIndex])) {
+        $color = $colors[$wordIndex]; // Select color based on word index
+        $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+    }
 }
 
 // Displaying the grid and words, with the searched words highlighted
