@@ -106,15 +106,34 @@ function searchWordInGrid($grid, $word, $color) {
 
 
 // Handling the search request
-$highlights = [];
+$allHighlights = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
-    $wordToSearch = strtoupper($_POST['word']); // Ensure the case matches the grid
-    $wordIndex = array_search(strtoupper($wordToSearch), array_map('strtoupper', $wordsList)); // Find the index of the word
-    if ($wordIndex !== false && isset($colors[$wordIndex])) {
-        $color = $colors[$wordIndex]; // Select color based on word index
-        $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+    if (strtoupper($_POST['word']) === 'ALL') {
+        // Loop through each word and merge highlights
+        foreach ($wordsList as $index => $word) {
+            $color = $colors[$index % count($colors)]; // Cycle through colors
+            $wordHighlights = searchWordInGrid($grid, strtoupper($word), $color);
+
+            // Merge highlights carefully without overwriting
+            foreach ($wordHighlights as $row => $cols) {
+                foreach ($cols as $col => $color) {
+                    $allHighlights[$row][$col] = $color; // Set or overwrite color
+                }
+            }
+        }
+        $highlights = $allHighlights;
+    } else {
+        // Handling for individual words (as before)
+        $wordToSearch = strtoupper($_POST['word']);
+        $wordIndex = array_search($wordToSearch, array_map('strtoupper', $wordsList));
+        if ($wordIndex !== false && isset($colors[$wordIndex])) {
+            $color = $colors[$wordIndex];
+            $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+        }
     }
 }
+
 
 // Displaying the grid and words, with the searched words highlighted
 displayGrid($grid, $highlights);
