@@ -7,7 +7,7 @@
     <title>Cross word game</title>
 </head>
 <body>
-    
+
 <?php
 
 // The noble declaration of your grid and words list
@@ -120,6 +120,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
 displayGrid($grid, $highlights);
 echo '<div class="words-list">';
 displayWords($wordsList);
+echo '<form style="display: inline;" action="" method="post">';
+echo '<input type="hidden" name="word" value="ALL">';
+echo '<button type="submit">All</button>';
+echo '</form>';
+echo '</div>';
+
 echo '</div>';
 
 
