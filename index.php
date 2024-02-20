@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     $activeWord = $_POST['word'];
     if ($activeWord === 'ALL') {
         foreach ($wordsList as $index => $word) {
-            $color = $colors[$index % count($colors)];
+            $color = $colors[$index];
             $wordHighlights = searchWordInGrid($grid, strtoupper($word), $color);
             foreach ($wordHighlights as $row => $cols) {
                 foreach ($cols as $col => $color) {
@@ -108,11 +108,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
         }
     } else {
         $wordToSearch = strtoupper($activeWord);
-        $wordIndex = array_search($wordToSearch, array_map('strtoupper', $wordsList));
-        if ($wordIndex !== false) {
-            $color = $colors[$wordIndex % count($colors)];
-            $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+        $wordIndex = 0;
+        foreach($wordsList as $index => $word) {
+            if (strtoupper($word) === $wordToSearch) {
+                $wordIndex = $index;
+                break;
+            }
         }
+        $color = $colors[$wordIndex];
+        $highlights = searchWordInGrid($grid, $wordToSearch, $color);
     }
 }
 
