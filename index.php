@@ -25,18 +25,18 @@ $grid = [
 ];
 
 $colors = [
-    "darkgreen", // 1
-    "lightgreen", // 2
-    "orange", // 3
-    "pink", // 4
-    "blue", // 5
-    "red", // 6
-    "yellow", // 7
-    "purple", // 8
-    "cyan", // 9
-    "magenta", // 10
-    "lime", // 11
-    "navy" // 12
+    "darkgreen", 
+    "lightgreen", 
+    "orange", 
+    "pink",
+    "blue", 
+    "red", 
+    "yellow", 
+    "purple", 
+    "cyan",
+    "magenta", 
+    "lime", 
+    "navy" 
 ];
 
 $wordsList = ["DIV", "PHP", "STYLE", "SQL", "HTML", "CSS", "JAVASCRIPT", "MATRIX", "SEARCH", "ARRAY", "LIST", "WORD"];
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     if (strtoupper($_POST['word']) === 'ALL') {
         // Loop through each word and merge highlights
         foreach ($wordsList as $index => $word) {
-            $color = $colors[$index % count($colors)]; // Cycle through colors
+            $color = $colors[$index]; // Cycle through colors
             $wordHighlights = searchWordInGrid($grid, strtoupper($word), $color);
 
             // Merge highlights carefully without overwriting
@@ -126,11 +126,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
     } else {
         // Handling for individual words (as before)
         $wordToSearch = strtoupper($_POST['word']);
-        $wordIndex = array_search($wordToSearch, array_map('strtoupper', $wordsList));
-        if ($wordIndex !== false && isset($colors[$wordIndex])) {
-            $color = $colors[$wordIndex];
-            $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+        $wordIndex = 0 ;
+        foreach($wordsList as $w_index => $w) {
+            if (strcmp($w, $wordToSearch) == 0) {
+                $wordIndex = $w_index ;
+                break ;
+            }
         }
+        $color = $colors[$wordIndex];
+        $highlights = searchWordInGrid($grid, $wordToSearch, $color);
+        
     }
 }
 
