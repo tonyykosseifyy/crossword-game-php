@@ -51,14 +51,12 @@ function displayWords($wordsList, $activeWord = '') {
         $style = $isActive ? ' style="background-color: '.$GLOBALS['colors'][$index].'; color: white;"' : '';
         echo '<form style="display: inline;" action="" method="post">';
         echo '<input type="hidden" name="word" value="' . htmlspecialchars($word) . '">';
-        echo '<input type="hidden" name="activeWord" value="' . htmlspecialchars($activeWord) . '">';
         echo '<button type="submit"' . $style . '>' . htmlspecialchars($word) . '</button>';
         echo '</form> ';
     }
     $allStyle = (strtoupper($activeWord) === 'ALL') ? ' style="background-color: grey; color: white;"' : '';
     echo '<form style="display: inline;" action="" method="post">';
     echo '<input type="hidden" name="word" value="ALL">';
-    echo '<input type="hidden" name="activeWord" value="ALL">';
     echo '<button type="submit"' . $allStyle . '>All</button>';
     echo '</form>';
 }
