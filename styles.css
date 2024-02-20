@@ -7,7 +7,7 @@ html {
 
 table {
     border-collapse: collapse;
-    margin: 50px auto 0 auto; /* Center the table horizontally */
+    margin: 50px auto 0 auto;
 }
 
 td {
@@ -18,10 +18,9 @@ td {
     font-family: "Roboto", sans-serif;
 }
 
-/* Style for the buttons and form */
 form {
-    display: inline-block; /* Keeps forms/buttons inline */
-    margin: 10px; /* Adds some space around each button */
+    display: inline-block; 
+    margin: 10px; 
 }
 
 button {
@@ -33,20 +32,20 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    transition-duration: 0.4s; /* Smooth transition for hover effect */
-    border-radius: 5px; /* Rounded corners for the button */
-    background-color: white; /* Initial background color */
-    color: black; /* Initial text color */
-    border: 2px solid #434343; /* Border color similar to dark green for consistency */
+    transition-duration: 0.4s; 
+    border-radius: 5px; 
+    background-color: white; 
+    color: black; 
+    border: 2px solid #434343; 
 }
 
-/* Hover effect for buttons */
+
 button:hover {
-    background-color: #2c2c2c; /* Dark green background on hover */
-    color: white; /* White text on hover */
+    background-color: #2c2c2c; 
+    color: white; 
 }
 
-/* Centering the words list */
+
 .words-list {
     display: flex;
     flex-wrap: wrap;
