@@ -124,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
         }
         $highlights = $allHighlights;
     } else {
-        // Handling for individual words (as before)
         $wordToSearch = strtoupper($_POST['word']);
         $wordIndex = 0 ;
         foreach($wordsList as $w_index => $w) {
@@ -135,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['word'])) {
         }
         $color = $colors[$wordIndex];
         $highlights = searchWordInGrid($grid, $wordToSearch, $color);
-        
     }
 }
 
